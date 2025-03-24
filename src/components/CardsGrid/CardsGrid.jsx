@@ -5,6 +5,8 @@ import Loader from "../Loader";
 import styles from "./CardsGrid.module.scss";
 import useFetch from "../../hooks/useFetch";
 
+const getKey = () => crypto.randomUUID();
+
 function CardsGrid(data) {
   // State Management
   const [images, setImages] = useState(data?.data?.images || []);

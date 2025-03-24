@@ -1,0 +1,15 @@
+@font-face {
+  font-family: "Popcat";
+  src: url("/Popcat.otf") format("opentype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+.container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  padding: 1rem;
+  font-family: Popcat, sans-serif;
+}

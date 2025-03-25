@@ -6,13 +6,13 @@ function Footer() {
   return (
     <footer className={styles.footer}>
       <p>
-      ©2024{' '}
+      ©2025{' '}
         <a
-          href="https://github.com/mihailgaberov"
+          href="https://github.com/IrvinDale"
           target="_blank"
           rel="noopener noreferrer"
         >
-          Mihail Gaberov
+          Irvin Dale
         </a>
         <span data-testid="version" className={styles.version}>v{packageJson.version}</span>
       </p>

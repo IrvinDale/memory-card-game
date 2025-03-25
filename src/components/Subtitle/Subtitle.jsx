@@ -1,10 +1,11 @@
 import React from "react";
 import styles from "./Subtitle.module.scss";
+import Score from "../Score";
 
 function Subtitle() {
   return (
     <h3 className={styles.container}>
-      Get points by clicking on an image but don't click on any more than once!
+      <Score />
     </h3>
   );
 }

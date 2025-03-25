@@ -17,7 +17,7 @@ function App() {
   return (
     <div className={styles.container}>
       <Header />
-      {/* <Subtitle /> */}
+      <Subtitle />
       <CardsGrid data={data} />
       <Footer />
     </div>

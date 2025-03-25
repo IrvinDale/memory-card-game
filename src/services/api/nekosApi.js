@@ -1,5 +1,5 @@
 const CORS_PROXY = "https://cors-anywhere.herokuapp.com/";
-const NEKOS_API_URL = "https://api.nekosapi.com/v4/images/random?limit=16&rating=safe";
+const NEKOS_API_URL = "https://api.nekosapi.com/v4/images/random?limit=12&rating=safe";
 
 export async function fetchNekosImages() {
   const response = await fetch(CORS_PROXY + NEKOS_API_URL, {

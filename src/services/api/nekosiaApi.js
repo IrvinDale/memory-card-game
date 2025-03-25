@@ -2,7 +2,7 @@ const NEKOSIA_API_URL = "https://api.nekosia.cat/api/v1/images/catgirl";
 
 export async function fetchNekosiaImages() {
   const response = await fetch(
-    `${NEKOSIA_API_URL}?count=21&additionalTags=white-hair,uniform&blacklistedTags=short-hair,sad,maid&width=300`
+    `${NEKOSIA_API_URL}?count=16&additionalTags=white-hair,uniform&blacklistedTags=short-hair,sad,maid&width=300`
   );
 
   if (!response.ok) {

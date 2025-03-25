@@ -1,4 +1,4 @@
-const NEKOS_API_URL = "https://api.nekosapi.com/v4/images/random?limit=21&rating=safe";
+const NEKOS_API_URL = "https://api.nekosapi.com/v4/images/random?limit=16&rating=safe";
 
 export async function fetchNekosImages() {
   const response = await fetch(NEKOS_API_URL, {

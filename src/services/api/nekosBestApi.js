@@ -3,7 +3,9 @@ const NEKOS_BEST_API_URL = "https://nekos.best/api/v2/neko?amount=18";
 export async function fetchNekosBestImages() {
   const response = await fetch(NEKOS_BEST_API_URL, {
     method: "GET",
+    mode: "no-cors"
   });
+
 
   if (!response.ok) {
     throw new Error(`Nekos Best API error: ${response.status}`);

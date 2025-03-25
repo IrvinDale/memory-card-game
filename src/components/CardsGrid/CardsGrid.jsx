@@ -13,7 +13,6 @@ const [images, setImages] = useState([]);
 const [flippedCards, setFlippedCards] = useState([]); // Track flipped cards
 const [matchedCards, setMatchedCards] = useState([]); // Track matched pairs
 const [score, setScore] = useLocalStorage("score", 0);
-const [bestScore, setBestScore] = useLocalStorage("bestScore", 0);
 const [isLoading, setIsLoading] = useState(!data?.data?.images?.length);
 const [isRevealing, setIsRevealing] = useState(true); // Initial reveal state
 
@@ -38,12 +37,7 @@ const [isRevealing, setIsRevealing] = useState(true); // Initial reveal state
     setIsRevealing(true);
     setTimeout(() => setIsRevealing(false), 3000); // Hide cards after 3 seconds
   }
-  // Helper function to update best score
-  function updateBestScore(currentScore) {
-    if (currentScore > bestScore) {
-      setBestScore(currentScore);
-    }
-  }
+
 
   // Core game logic
   function processTurn(imageId, index) {
@@ -62,7 +56,6 @@ const [isRevealing, setIsRevealing] = useState(true); // Initial reveal state
         setMatchedCards([...matchedCards, firstCard.index, secondCard.index]);
         const newScore = score + 1;
         setScore(newScore);
-        updateBestScore(newScore);
       }
 
       // Reset flipped cards after a short delay

@@ -8,64 +8,62 @@ import useFetch from "../../hooks/useFetch";
 const getKey = () => crypto.randomUUID();
 
 function CardsGrid(data) {
-  // State Management
-  const [images, setImages] = useState(data?.data?.images || []);
-  const [clickedImages, setClickedImages] = useLocalStorage("clickedImages", []);
-  const [score, setScore] = useLocalStorage("score", 0);
-  const [bestScore, setBestScore] = useLocalStorage("bestScore", 0);
-  const [isLoading, setIsLoading] = useState(!data?.data?.images?.length);
+// State Management
+const [images, setImages] = useState([]);
+const [flippedCards, setFlippedCards] = useState([]); // Track flipped cards
+const [matchedCards, setMatchedCards] = useState([]); // Track matched pairs
+const [score, setScore] = useLocalStorage("score", 0);
+const [isLoading, setIsLoading] = useState(!data?.data?.images?.length);
+const [isRevealing, setIsRevealing] = useState(true); // Initial reveal state
 
-  // Custom hook for fetching images
-  const { data: fetchedData, fetchData, error } = useFetch();
+    // Custom hook for fetching images
+    const { data: fetchedData, fetchData, error } = useFetch();
 
-  // Update images when new data is fetched
+      // Initialize game when new data is fetched
   useEffect(() => {
     if (fetchedData?.images) {
-      setImages(fetchedData.images);
-      setIsLoading(false);
-      // Reset clicked images when new batch is loaded
-      setClickedImages([]);
+      initializeGame(fetchedData.images);
     }
   }, [fetchedData]);
 
-  // Helper function to update best score
-  function updateBestScore(currentScore) {
-    if (currentScore > bestScore) {
-      setBestScore(currentScore);
-    }
+    // Initialize game with images
+  function initializeGame(newImages) {
+    const duplicatedImages = [...newImages, ...newImages]; // Duplicate images for pairs
+    const shuffledImages = duplicatedImages.sort(() => Math.random() - 0.5); // Shuffle images
+    setImages(shuffledImages);
+    setFlippedCards([]);
+    setMatchedCards([]);
+    setScore(0);
+    setIsRevealing(true);
+    setTimeout(() => setIsRevealing(false), 3000); // Hide cards after 3 seconds
   }
+
 
   // Core game logic
-  function processTurn(imageId) {
-    const newClickedImages = [...clickedImages, imageId];
-    setClickedImages(newClickedImages);
+  function processTurn(imageId, index) {
+    if (flippedCards.length === 2 || matchedCards.includes(index)) {
+      return; // Prevent flipping more than 2 cards or flipping matched cards
+    }
 
-    // If clicking the same image twice, reset everything
-    if (clickedImages.includes(imageId)) {
-      // Update the best score if necessary
-      updateBestScore(score);
+    const newFlippedCards = [...flippedCards, { imageId, index }];
+    setFlippedCards(newFlippedCards);
 
-      setClickedImages([]);
-      setScore(0);
-    } else {
-      // Handle successful card selection
-      const newScore = score + 1;
-      setScore(newScore);
+    if (newFlippedCards.length === 2) {
+      const [firstCard, secondCard] = newFlippedCards;
 
-      // Check for perfect score (all cards clicked once)
-       if (newClickedImages.length === images.length) {
-        updateBestScore(newScore);
-        fetchData();
-        setClickedImages([]);
-      } else {
-        // Shuffle the images
-        const shuffled = [...images].sort(() => Math.random() - 0.5);
-        setImages(shuffled);
+      // Check for a match
+      if (firstCard.imageId === secondCard.imageId) {
+        setMatchedCards([...matchedCards, firstCard.index, secondCard.index]);
+        const newScore = score + 1;
+        setScore(newScore);
       }
+
+      // Reset flipped cards after a short delay
+      setTimeout(() => setFlippedCards([]), 1000);
     }
   }
 
- if (error) {
+  if (error) {
     return <p>Failed to fetch data</p>;
   }
 
@@ -75,13 +73,14 @@ function CardsGrid(data) {
 
   return (
     <div className={styles.container}>
-      {images.map((item) => (
+      {images.map((item, index) => (
         <Card
           key={getKey()}
           imgUrl={item?.image?.original?.url || ""}
-          imageId={item?.id}
-          categoryName={item?.category}
-          processTurn={(imageId) => processTurn(imageId)}
+          isFlipped={
+            isRevealing || flippedCards.some((card) => card.index === index) || matchedCards.includes(index)
+          }
+          processTurn={() => processTurn(item?.id, index)}
         />
       ))}
     </div>

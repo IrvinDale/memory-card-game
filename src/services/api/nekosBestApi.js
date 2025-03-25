@@ -1,9 +1,8 @@
-const NEKOS_BEST_API_URL = "https://nekos.best/api/v2/neko?amount=16";
+const NEKOS_BEST_API_URL = "https://nekos.best/api/v2/neko?amount=12";
 
 export async function fetchNekosBestImages() {
   const response = await fetch(NEKOS_BEST_API_URL, {
     method: "GET",
-    mode: "no-cors"
   });
 
 

@@ -8,6 +8,13 @@
     border-radius: 4px;
     margin: auto;
   }
+
+  @media (min-width: 425px) {
+    .container {
+      grid-template-columns: auto auto auto; /* Two columns for tablets and up */
+
+    }
+  }
   
   @media (min-width: 768px) {
     .container {
@@ -16,8 +23,8 @@
     }
   }
   
-  @media (min-width: 1024px) {
+  @media (min-width: 1025px) {
     .container {
-      grid-template-columns: auto auto auto auto ; /* Four columns for desktops and larger */
+      grid-template-columns: auto auto auto auto auto auto; /* Four columns for desktops and larger */
     }
   }

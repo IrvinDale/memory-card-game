@@ -13,7 +13,7 @@ const [images, setImages] = useState([]);
 const [flippedCards, setFlippedCards] = useState([]); // Track flipped cards
 const [matchedCards, setMatchedCards] = useState([]); // Track matched pairs
 const [score, setScore] = useLocalStorage("score", 0);
-const [isLoading, setIsLoading] = useState(!data?.data?.images?.length);
+const [isLoading, setIsLoading] = useState(true); // Initial loading state
 const [isRevealing, setIsRevealing] = useState(true); // Initial reveal state
 
     // Custom hook for fetching images
@@ -28,20 +28,25 @@ const [isRevealing, setIsRevealing] = useState(true); // Initial reveal state
 
     // Initialize game with images
   function initializeGame(newImages) {
+    setIsLoading(true); // Start loading
     const duplicatedImages = [...newImages, ...newImages]; // Duplicate images for pairs
     const shuffledImages = duplicatedImages.sort(() => Math.random() - 0.5); // Shuffle images
     setImages(shuffledImages);
     setFlippedCards([]);
     setMatchedCards([]);
     setScore(0);
+    setIsLoading(false); // End loading
+     // Reveal all cards for 3 seconds
     setIsRevealing(true);
-    setTimeout(() => setIsRevealing(false), 3000); // Hide cards after 3 seconds
+    setTimeout(() => {
+      setIsRevealing(false); // End revealing
+    }, 3000);
   }
 
 
   // Core game logic
   function processTurn(imageId, index) {
-    if (flippedCards.length === 2 || matchedCards.includes(index)) {
+    if (isRevealing || flippedCards.length === 2 || flippedCards.some((card) => card.index === index)) {
       return; // Prevent flipping more than 2 cards or flipping matched cards
     }
 

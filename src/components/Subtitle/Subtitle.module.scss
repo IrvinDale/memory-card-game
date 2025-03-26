@@ -1,8 +1,22 @@
 .container {
     color: #61cbfc;
     font-weight: bold;
-    font-family: "Popcat", sans-serif;
     display: flex;
     align-items: center;
     justify-content: center;
+    gap: 10px; /* Add spacing between Score and the button */
+  }
+
+  .resetButton {
+    background: none;
+    border: none;
+    font-size: 1.2rem;
+    cursor: pointer;
+    color: inherit;
+    padding: 0;
+    transition: transform 0.3s ease; /* Smooth transition for rotation */
+  }
+  
+  .resetButton:hover {
+    transform: rotate(-360deg); /* Rotate the button on hover */
   }

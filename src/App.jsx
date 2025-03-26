@@ -1,3 +1,4 @@
+import React, { useState } from 'react';
 import Header from './components/Header/Header';
 import Subtitle from './components/Subtitle/Subtitle';
 import CardsGrid from './components/CardsGrid/CardsGrid';
@@ -10,15 +11,23 @@ import styles from './App.module.scss';
 
 function App() {
   const { data, loading, error } = useFetch();
+  const [gameKey, setGameKey] = useState(0); // Add a key to force re-render
+
+  // Reset handler
+  function handleResetGame() {
+    setGameKey((prevKey) => prevKey + 1); // Increment the key to reset the game
+  }
+
 
   if (loading) return <Loader />;
   if (error) return <p>Error: {error}</p>;
+  
 
   return (
     <div className={styles.container}>
       <Header />
-      <Subtitle />
-      <CardsGrid data={data} />
+      <Subtitle onReset={handleResetGame} />
+      <CardsGrid key={gameKey} data={data} />
       <Footer />
     </div>
   )

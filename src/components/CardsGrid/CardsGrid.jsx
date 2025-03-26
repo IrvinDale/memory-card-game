@@ -12,7 +12,8 @@ function CardsGrid(data) {
 const [images, setImages] = useState([]);
 const [flippedCards, setFlippedCards] = useState([]); // Track flipped cards
 const [matchedCards, setMatchedCards] = useState([]); // Track matched pairs
-const [score, setScore] = useLocalStorage("score", 0);
+const [moves, setMoves] = useLocalStorage("moves", 0); // Track the number of moves
+const [bestScore, setBestScore] = useLocalStorage("bestScore", null); // Track the best score
 const [isLoading, setIsLoading] = useState(true); // Initial loading state
 const [isRevealing, setIsRevealing] = useState(true); // Initial reveal state
 
@@ -34,7 +35,7 @@ const [isRevealing, setIsRevealing] = useState(true); // Initial reveal state
     setImages(shuffledImages);
     setFlippedCards([]);
     setMatchedCards([]);
-    setScore(0);
+    setMoves(0); // Reset moves
     setIsLoading(false); // End loading
      // Reveal all cards for 3 seconds
     setIsRevealing(true);
@@ -46,23 +47,41 @@ const [isRevealing, setIsRevealing] = useState(true); // Initial reveal state
 
   // Core game logic
   function processTurn(imageId, index) {
-    if (isRevealing || flippedCards.length === 2 || flippedCards.some((card) => card.index === index)) {
-      return; // Prevent flipping more than 2 cards or flipping matched cards
+    // Prevent flipping more than 2 cards, flipping matched cards, or flipping the same card twice
+    if (
+      isRevealing || 
+      flippedCards.length === 2 || 
+      flippedCards.some((card) => card.index === index) ||
+      matchedCards.includes(index)
+    ) {
+      return; 
     }
 
     const newFlippedCards = [...flippedCards, { imageId, index }];
     setFlippedCards(newFlippedCards);
 
     if (newFlippedCards.length === 2) {
+      const currentMoves = moves + 1; // Calculate the current moves dynamically
+      setMoves(currentMoves); // Increment moves on every attempt
+
       const [firstCard, secondCard] = newFlippedCards;
 
       // Check for a match
       if (firstCard.imageId === secondCard.imageId) {
-        setMatchedCards([...matchedCards, firstCard.index, secondCard.index]);
-        const newScore = score + 1;
-        setScore(newScore);
-      }
+        const updatedMatchedCards = [...matchedCards, firstCard.index, secondCard.index];
+        setMatchedCards(updatedMatchedCards);
 
+        // Check if the game is completed
+        if (updatedMatchedCards.length === images.length) {
+
+        // Update best score if the current moves are better
+        setBestScore((prevBest) => {
+          const newBestScore = prevBest === null || prevBest === 0 || currentMoves < prevBest ? currentMoves : prevBest;
+          return newBestScore;
+        });
+
+        }
+      }
       // Reset flipped cards after a short delay
       setTimeout(() => setFlippedCards([]), 1000);
     }

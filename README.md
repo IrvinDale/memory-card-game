@@ -1,12 +1,18 @@
-# React + Vite
+# React Memory Game
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+React Memory Game is a fun and engaging web application designed to test and improve your memory skills. Built with React and Vite, this game challenges players to flip cards and find matching pairs with adorable anime images. The game starts with all cards hidden, and players must rely on their memory to match pairs in fewest moves as possible
 
-Currently, two official plugins are available:
+Features include:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- Interactive gameplay with smooth animations.
+- An extensive collection of SFW anime images from Nekosia API.
+- A responsive design that works seamlessly on desktop and mobile devices.
+- A scoring system to track your moves and challenge yourself to beat your best score.
 
-## Expanding the ESLint configuration
+Perfect for all ages, this game is a great way to exercise your brain while having fun!
 
-If you are developing a production application, we recommend using TypeScript and enable type-aware lint rules. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+---
+
+## Credits
+
+This project was inspired by the [Memory Card Game Guide](https://www.freecodecamp.org/news/how-to-build-a-memory-card-game-using-react/) by Mihail Gaberov on freeCodeCamp.

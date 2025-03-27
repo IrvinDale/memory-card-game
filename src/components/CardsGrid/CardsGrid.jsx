@@ -91,15 +91,16 @@ const [isRevealing, setIsRevealing] = useState(true); // Initial reveal state
     return <p>Failed to fetch data</p>;
   }
 
-  if (isLoading) {
-    return <Loader message="Loading new images..." />;
-  }
-
   return (
     <div className={styles.container}>
+      {isLoading && (
+        <div className={styles.loaderContainer}>
+          <Loader message="Loading..." />
+        </div>
+      )}
       {images.map((item, index) => (
         <Card
-          key={getKey()}
+          key={index}
           imgUrl={item?.image?.original?.url || ""}
           isFlipped={
             isRevealing || flippedCards.some((card) => card.index === index) || matchedCards.includes(index)

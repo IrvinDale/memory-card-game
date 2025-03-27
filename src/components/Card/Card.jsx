@@ -17,4 +17,4 @@ function Card({ imgUrl, isFlipped, processTurn }) {
   );
 }
 
-export default Card;
+export default React.memo(Card);

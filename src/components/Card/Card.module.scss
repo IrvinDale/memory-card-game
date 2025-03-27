@@ -2,18 +2,18 @@
   width: 7rem;
   height: 10rem;
   border-radius: 8px;
-  background: linear-gradient(135deg, #e8edec, #fffc); /* Gradient for card back */
+  background: linear-gradient(135deg, #e8edec, #ffffffcc); /* Gradient for card back */
   display: flex;
   justify-content: center;
   align-items: center;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   cursor: pointer;
+  position: relative;
   transition: transform 0.3s ease, opacity 0.3s ease;
   &:hover {
     transform: scale(1.03);
   }
 }
-
 
 
 .image {

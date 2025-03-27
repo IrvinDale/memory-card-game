@@ -33,7 +33,10 @@ function Card({ imgUrl, isFlipped, processTurn, onCardLoaded }) {
 
     if (img.complete) {
       console.log("Image is already cached:", imgUrl); // Debug
-      handleImageLoad();
+      handleImageLoad(); // Handle cached images
+    } else {
+      img.onload = handleImageLoad; // Handle non-cached images
+      img.onerror = () => console.error("Failed to load image:", imgUrl); // Debug
     }
   }, [imgUrl]);
 
@@ -52,6 +55,7 @@ function Card({ imgUrl, isFlipped, processTurn, onCardLoaded }) {
         src={imgUrl}
         alt="Card"
         onLoad={handleImageLoad}
+        onError={() => console.error("Failed to load image:", imgUrl)} // Debug
         className={`${styles.image} ${!isFlipped ? styles.hidden : ""}`}
       />
     </div>

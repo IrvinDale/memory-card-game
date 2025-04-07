@@ -1,6 +1,6 @@
 # React Memory Game
 
-React Memory Game is a fun and engaging web application designed to test and improve your memory skills. Built with React and Vite, this game challenges players to flip cards and find matching pairs with adorable anime images. The game starts with all cards hidden, and players must rely on their memory to match pairs in fewest moves as possible
+React Memory Game is a fun and engaging web application designed to test and improve your memory skills. Built with React and Vite, this game challenges players to flip cards and find matching pairs with adorable anime images. The game starts with all cards hidden, and players must rely on their memory to match pairs in fewest moves as possible.
 
 Features include:
 
